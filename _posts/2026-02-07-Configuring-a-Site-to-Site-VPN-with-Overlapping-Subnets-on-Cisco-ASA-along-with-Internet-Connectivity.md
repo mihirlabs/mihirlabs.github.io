@@ -8,7 +8,7 @@ img_path: /assets/img/2026-02-07-asa-overlap/
 
 ## Lab Objective
 
-In a typical Site-to-Site VPN, both sides must have unique LAN subnets. But what happens during a corporate merger when both companies use the subnet space?
+In a typical Site-to-Site VPN, both sides must have unique LAN subnets. But what happens during a corporate merger when both companies use the same subnet space?
 
 The objective of this lab is to build an IKEv1 IPsec tunnel between two  ASAs where both local LANs overlap perfectly. We will use **Policy NAT (Twice NAT)** to hide the real subnets behind unique "mapped" subnets as traffic traverses the tunnel.
 
