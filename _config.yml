@@ -13,7 +13,7 @@ timezone: Asia/Kolkata
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
-
+avatar: /assets/img/avatar.png
 title: Mihir's Security Lab
 
 tagline: Decrypting Complexity # it will display as the subtitle
