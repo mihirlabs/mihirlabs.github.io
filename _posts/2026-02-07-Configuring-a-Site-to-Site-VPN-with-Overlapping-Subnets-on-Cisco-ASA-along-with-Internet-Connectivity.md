@@ -1,5 +1,5 @@
 ---
-title: "Lab: Configuring a Site-to-Site VPN with Overlapping Subnets on Cisco ASA along with Internet Connectivity"
+title: "Lab: Configuring a Site-to-Site VPN with Overlapping Subnets on  ASA along with Internet Connectivity"
 date: 2026-02-07 18:00:00 +0530
 categories: [VPN]
 tags: [vpn, ikev1, NAT, ASA, pnetlab]
@@ -10,7 +10,7 @@ img_path: /assets/img/2026-02-07-asa-overlap/
 
 In a typical Site-to-Site VPN, both sides must have unique LAN subnets. But what happens during a corporate merger when both companies use the subnet space?
 
-The objective of this lab is to build an IKEv1 IPsec tunnel between two Cisco ASAs where both local LANs overlap perfectly. We will use **Policy NAT (Twice NAT)** to hide the real subnets behind unique "mapped" subnets as traffic traverses the tunnel.
+The objective of this lab is to build an IKEv1 IPsec tunnel between two  ASAs where both local LANs overlap perfectly. We will use **Policy NAT (Twice NAT)** to hide the real subnets behind unique "mapped" subnets as traffic traverses the tunnel.
 
 ## Network Topology
 
@@ -36,7 +36,7 @@ Below is the logical setup. Note that Site A and Site B are identical subnet ran
 
 On ASA firewalls, clarity is king. We define objects for both the real IPs and the mapped IPs.
 
-```cisco
+```
 ! ASA-1 Configuration
 
 ! 1. Define Local (Site A) Object
@@ -48,7 +48,7 @@ Above here while creating object for Host A LAN users, A **Dynamic PAT** is conf
 
 Now Let's create some more object
 
-```cisco
+```
 ! 2. Define Mapped Object
 object network NOTREAL
  subnet 192.1.101.0 255.255.255.0
@@ -59,7 +59,7 @@ object network VPNDEST
 ```
 In Policy Based VPN, It is must to match the interesting traffic which actually triggers the VPN. To overwrite the Dynamic PAT Rule only for the interesting VPN traffic except for the traffic towards the internet, Let's configure a Manual NAT in global configuration mode.
 
-```cisco
+```
 nat (INSIDE,OUTSIDE) source static REAL NOTREAL destination static VPNDEST VPNDEST
 ```
 
@@ -74,7 +74,7 @@ Send it to the OUTSIDE interface and translate:
 To match and keep the Destination IP Address as intact, It is required to map the receiving destination IP from INSIDE as same as transmitting destination IP to OUTSIDE.
 
 Let's configure isakmp SA policy, ACL for Interesting Traffic and IPSec SA using transform-set
-```cisco
+```
 !Phase - I
 crypto ikev1 policy 1
  hash sha
@@ -103,7 +103,7 @@ crypto map CMAP interface OUTSIDE
 ```
 Same configuration is needed on other Site with logical change in commands of ASA-2 
 
-```cisco
+```
 ! ASA-2 Configuration
 
 object network REAL
