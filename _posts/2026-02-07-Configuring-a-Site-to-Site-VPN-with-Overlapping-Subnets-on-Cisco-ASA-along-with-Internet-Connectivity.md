@@ -173,5 +173,8 @@ show running-config all sysopt
 You can download the topology file for this lab below.
 
 ## Lab File for Practice
-[Download Lab File (.unl)](/assets/files/lab-01.zip){: .btn .btn--primary }
+<a href="/assets/files/lab-01.unl" class="btn btn-primary" download>
+  <i class="fas fa-download"></i> Download Lab File (.unl)
+</a>
+#[Download Lab File (.unl)](/assets/files/lab-01.zip){: .btn .btn--primary }
 
