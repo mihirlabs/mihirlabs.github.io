@@ -16,7 +16,7 @@ The objective of this lab is to build an IKEv1 IPsec tunnel between two Cisco AS
 
 Below is the logical setup. Note that Site A and Site B are identical subnet ranges.
 
-![Topology Diagram](topology-diagram.png)
+![Topology Diagram]( /assets/img/2026-02-07-asa-overlap/topology-diagram.png)
 
 ### The IP Addressing Scheme
 
