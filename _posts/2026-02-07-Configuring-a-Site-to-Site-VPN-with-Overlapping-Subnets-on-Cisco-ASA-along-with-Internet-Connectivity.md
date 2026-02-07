@@ -57,12 +57,14 @@ object network NOTREAL
 object network VPNDEST          
  subnet 192.1.102.0 255.255.255.0
 ```
+### Step 2: Defining Manual NAT (ASA-1)
+
 In Policy Based VPN, It is must to match the interesting traffic which actually triggers the VPN. To overwrite the Dynamic PAT Rule only for the interesting VPN traffic except for the traffic towards the internet, Let's configure a Manual NAT in global configuration mode.
 
 ```
 nat (INSIDE,OUTSIDE) source static REAL NOTREAL destination static VPNDEST VPNDEST
 ```
-
+#### Logic Behind the Policy NAT
 When traffic on the INSIDE interface matches:
  - a source of object REAL
  - a destination of object VPNDEST
@@ -73,6 +75,7 @@ Send it to the OUTSIDE interface and translate:
 
 To match and keep the Destination IP Address as intact, It is required to map the receiving destination IP from INSIDE as same as transmitting destination IP to OUTSIDE.
 
+### Step 3: Creating IKEv1 IPSec Tunnel (ASA-1)
 Let's configure isakmp SA policy, ACL for Interesting Traffic and IPSec SA using transform-set
 ```
 !Phase - I
@@ -101,6 +104,8 @@ crypto map CMAP 1 set ikev1 transform-set TR
 crypto map CMAP 1 set peer 10.1.22.2
 crypto map CMAP interface OUTSIDE
 ```
+
+### Step 4: Configuration for ASA-2
 Same configuration is needed on other Site with logical change in commands of ASA-2 
 
 ```
@@ -140,7 +145,8 @@ crypto map CMAP 1 set peer 10.1.12.1
 crypto map CMAP interface OUTSIDE
 ```
 
-It is required to initiate a traffic from either end in order to create a secure tunnel that gets triggered after matching Policy NAT configured earlier.
+## Verification
+It is required to initiate a traffic from either end in order to create a secure tunnel that gets triggered after matching Policy NAT that we configured earlier.
 
 
 To check Phase - I status 
@@ -158,7 +164,7 @@ To check NAT rule status
 show nat detail
 ```
 
-
+## Homework
 Great! We've configured a little complex Lab today but It is quiet concerning that how ASA firewall allowing traffic other than TCP protocols? 
 To find the answer for this question, Do some digging with 
 ```
@@ -166,6 +172,6 @@ show running-config all sysopt
 ```
 You can download the topology file for this lab below.
 
-<i class="fas fa-download"></i> Download Lab File (.unl) {: .btn .btn--primary }
-
+## Lab File for Practice
+[Download Lab File (.unl)](/assets/files/lab-01.unl){: .btn .btn--primary }
 
